@@ -45,6 +45,7 @@ def main(data_dir: Path, audio_dir: Path, save_dir: Path) -> None:
         "SuperbSD_Libri2Mix-Test",
         "SuperbER_RAVDESS",
     ]
+    save_dir.mkdir(parents=True, exist_ok=True)
     for task in tasks:
         task_data_dir = data_dir / task
         task_audio_dir = audio_dir / task
