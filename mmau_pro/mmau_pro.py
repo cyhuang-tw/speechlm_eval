@@ -19,7 +19,11 @@ def main(data_dir: Path, save_path: Path) -> None:
         audio_path = data_dir / item["audio_path"][0]
         question = item["question"]
         choices = item["choices"]
-        instruction = f"Question: {question}\nChoices: {', '.join(choices)}"
+        if choices is not None:
+            instruction = f"Question: {question}\nChoices: {', '.join(choices)}"
+        else:
+            instruction = f"Question: {question}\n"
+
         item["example_id"] = example_id
         item["messages"] = [
             ("user", "audio", str(audio_path)),
