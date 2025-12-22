@@ -3,7 +3,7 @@
 # Please run "hf auth login" prior to the download.
 
 HF_PATH="gamma-lab-umd/MMAU-Pro"
-LOCAL_DIR="mmau_pro"
+LOCAL_DIR="/work/hdd/bbjs/chuang14/benchmark_data/mmau_pro"
 
 hf download ${HF_PATH} \
   --repo-type dataset \

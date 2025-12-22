@@ -12,7 +12,7 @@ TASKS=(
   "SuperbSD_Libri2Mix-Test"
   "SuperbER_RAVDESS"
 )
-LOCAL_DIR="dynamic_superb"
+LOCAL_DIR="/work/hdd/bbjs/chuang14/benchmark_data/dynamic_superb"
 mkdir -p ${LOCAL_DIR}
 
 for TASK in "${TASKS[@]}"; do
