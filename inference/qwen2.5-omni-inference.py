@@ -43,6 +43,13 @@ def main(jsonl_path: Path, output_path: Path) -> None:
             conversation, add_generation_prompt=True, tokenize=False
         )
         audios, images, videos = process_mm_info(conversation, use_audio_in_video=False)
+
+        if len(audios[0]) == 0:
+            print(f"Example ID: {ex_id} has corrupted audio, skipping it for now.")
+            data["sllm_response"] = ""
+            outputs.append(data)
+            continue
+
         inputs = processor(
             text=text,
             audio=audios,

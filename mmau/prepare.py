@@ -20,7 +20,7 @@ def main(data_dir: Path, save_path: Path) -> None:
         instruction = f"Question: {question}\nChoices: {', '.join(choices)}"
         item["example_id"] = example_id
         item["messages"] = [
-            ("user", "audio", str(audio_path)),
+            ("user", "audio", str(audio_path.absolute())),
             ("user", "text", instruction),
         ]
         outputs.append(item)
