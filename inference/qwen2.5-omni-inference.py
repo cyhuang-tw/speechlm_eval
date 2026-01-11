@@ -24,7 +24,8 @@ def main(jsonl_path: Path, output_path: Path) -> None:
         "content": [
             {
                 "type": "text",
-                "text": "You are Qwen, a virtual human developed by the Qwen Team, Alibaba Group, capable of perceiving auditory and visual inputs, as well as generating text and speech.",
+                "text": "You are a audio understanding model. Choose one of the options without any explanation.",
+                # "text": "You are Qwen, a virtual human developed by the Qwen Team, Alibaba Group, capable of perceiving auditory and visual inputs, as well as generating text and speech.",
             }
         ],
     }
