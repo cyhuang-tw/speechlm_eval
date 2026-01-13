@@ -16,7 +16,7 @@ def main(jsonl_path: Path, save_path: Path) -> None:
         MODEL_PATH,
         dtype="auto",
         device_map="auto",
-        attn_implementation="flash_attention_2",
+        # attn_implementation="flash_attention_2",
     )
     model.disable_talker()
 
@@ -26,14 +26,14 @@ def main(jsonl_path: Path, save_path: Path) -> None:
     outputs = []
 
     for data in metadata:
-        ex_id = data["id"]
+        ex_id = data["example_id"]
         messages = data["messages"]  # a list of tuples
 
         user_messages = []
         for msg in messages:
             _, msg_type, msg_content = msg
             user_messages.append({"type": msg_type, msg_type: msg_content})
-        conversation = {"role": "user", "content": user_messages}
+        conversation = [{"role": "user", "content": user_messages}]
 
         # Preparation for inference
         text = processor.apply_chat_template(
@@ -61,6 +61,9 @@ def main(jsonl_path: Path, save_path: Path) -> None:
             skip_special_tokens=True,
             clean_up_tokenization_spaces=False,
         )
+        if isinstance(text, list):
+            assert len(text) == 1
+            text = text[0]
         print(text)
         data["sllm_response"] = text
         outputs.append(data)
