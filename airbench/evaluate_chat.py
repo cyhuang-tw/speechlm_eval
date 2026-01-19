@@ -170,7 +170,7 @@ def get_unprocessed_data(args, out_file):
         for data in out_data_l:
             if data["gen"] != "error":
                 uuid_s.add(data[args.uuid])
-    for data in load_file2list(args.jsonl_path):
+    for data in load_file2list(args.intermediate_file):
         if data[args.uuid] in uuid_s:
             continue
         data_l.append(data)
@@ -201,13 +201,9 @@ def run_chat_gen(args):
     writer.close()
 
 
-def build_test_file():
-    root = "."
-
-    with open(
-        os.path.join(root, "batch_run_input.jsonl"), "w", encoding="utf-8"
-    ) as writer:
-        with open("Chat_result_modelx.jsonl", "r") as fp:
+def build_test_file(input_file, save_path):
+    with open(save_path, "w", encoding="utf-8") as writer:
+        with open(input_file, "r") as fp:
             for data in fp:
                 row = json.loads(data)
 
@@ -266,6 +262,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="llm gen")
     parser.add_argument("--jsonl_path", type=Path, required=True)
     parser.add_argument("--output_path", type=Path, required=True)
+    parser.add_argument(
+        "--intermediate_file", type=Path, default="batch_run_input.jsonl"
+    )
     parser.add_argument("-n", "--num-workers", type=int, default=50)  # max=50
     parser.add_argument("-m", "--model-name", type=str, default="gpt-4-0125-preview")
     parser.add_argument("-t", "--temperature", type=float, default=1.0)
@@ -275,7 +274,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # step 1
-    build_test_file()
+    build_test_file(args.jsonl_path, args.intermediate_file)
 
     # step 2
     run_chat_gen(args)
