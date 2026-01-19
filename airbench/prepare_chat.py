@@ -15,6 +15,7 @@ def main(data_dir: Path, save_path: Path) -> None:
         wav = item["path"]
         task_name = item["task_name"]
         dataset_name = item["dataset_name"]
+        meta_info = item["meta_info"]
         data_path = root_path / f"{task_name}_{dataset_name}" / wav
         if not data_path.exists():
             print(f"Audio file {data_path} does not exist.")
@@ -34,6 +35,8 @@ def main(data_dir: Path, save_path: Path) -> None:
             "answer_gt": answer_gt,
             "task_name": task_name,
             "dataset_name": dataset_name,
+            "meta_info": meta_info,
+            "path": wav,
         }
         outputs.append(example)
 
