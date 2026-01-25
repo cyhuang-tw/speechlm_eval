@@ -25,10 +25,11 @@ def main(data_dir: Path, save_path: Path) -> None:
 
         example = {
             # The first two keys are mandatory.
-            "example_id": example_id,
+            "example_id": str(example_id),
             "messages": [
-                ("user", "audio", str(data_path)),
-                ("user", "text", instruction),
+                ["system", "text", "You are a helpful audio understanding assistant. When given an audio and a question about it, first think through what you hear in the audio and how it relates to the question, then provide a clear and accurate answer."],
+                ["user", "audio", str(data_path.absolute())],
+                ["user", "text", instruction],
             ],
             # These are optional. They may be used in the official AIR-Bench code.
             "question": instruction,
